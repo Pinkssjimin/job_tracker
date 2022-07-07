@@ -1,5 +1,6 @@
 # 13COS Jimin Ahn
 # AS 91906
+# 07/07/2022
 
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
