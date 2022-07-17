@@ -10,6 +10,7 @@ class Start:
 
         # background colour
         background_colour = "light pink"
+        entry_font = "Arial 8"
 
         # initialise list to hold jobs
         self.job_list = []
@@ -24,9 +25,12 @@ class Start:
         logo_label.grid(row=0)
 
         # Job tracker heading (row 1)
-        self.entry_frame = LabelFrame(text="Add New Job",
-                                       font="Arial 19 bold")
+        self.entry_frame = LabelFrame(self.job_frame, highlightbackground="blue", highlightthickness=2)
         self.entry_frame.grid(row=1, padx=10, pady=10)
+
+        # title for add new job
+        self.add_job_label = Label(self.entry_frame, text="Add New Job")
+        self.add_job_label.grid(row=0, columnspan=2, sticky="E", padx=20, pady=10)
 
         # variables for entry inputs
         self.name_var = StringVar()
@@ -37,33 +41,33 @@ class Start:
         # name entry (row 2)
         # name entry title
         self.name_entry_label = Label(self.entry_frame, text="Customer Name: ",
-                                      font="Arial 14 bold")
-        self.name_entry_label.grid(row=1, column=0)
+                                      font=entry_font)
+        self.name_entry_label.grid(row=1, column=0, sticky="E", padx=10, pady=10)
 
         # Name Entry Box
-        self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font="Arial 14")
-        self.name_entry.grid(row=1, column=1, columnspan=2, padx=10, pady=10)
+        self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=entry_font)
+        self.name_entry.grid(row=1,  column=1, columnspan=2, sticky="W", padx=(0,10), pady=10)
 
         # job number entry (row 3)
 
         # distance entry  (row 4)
         # distance entry title
         self.dist_entry_label = Label(self.entry_frame, text="Distance Travelled: ",
-                                      font="Arial 14 bold")
-        self.dist_entry_label.grid(row=2, column=0, padx=10, pady=10)
+                                      font=entry_font)
+        self.dist_entry_label.grid(row=2, column=0, sticky="E", padx=10, pady=(0,10))
 
         # distance Entry Box
         self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=5)
-        self.dist_entry.grid(row=2, column=1)
+        self.dist_entry.grid(row=2, column=1, sticky="W", pady=(0,10))
 
         # scale label
-        self.dist_scale = Label(self.entry_frame, text="km", font="Arial 14", justify=LEFT)
+        self.dist_scale = Label(self.entry_frame, text="km", font=entry_font, justify=LEFT)
         self.dist_scale.grid(row=2, column=2)
 
         # Virus protection entry (row 5)
         # virus protection entry title
         self.virus_entry_label = Label(self.entry_frame, text="Virus Protection Time: ",
-                                      font="Arial 14 bold")
+                                      font=entry_font)
         self.virus_entry_label.grid(row=3, column=0, pady=10, padx=10)
 
         # virus protection Entry Box
@@ -71,13 +75,13 @@ class Start:
         self.virus_entry.grid(row=3, column=1, pady=10)
 
         # scale label (minutes)
-        self.virus_scale = Label(self.entry_frame, text="min", font="Arial 14")
+        self.virus_scale = Label(self.entry_frame, text="min", font=entry_font)
         self.virus_scale.grid(row=3, column=2)
 
         # WOF and tune entry (row 6)
         # wof entry title
         self.wof_entry_label = Label(self.entry_frame, text="WoF & Tune: ",
-                                      font="Arial 14 bold")
+                                      font=entry_font)
         self.wof_entry_label.grid(row=4, column=0, padx=10)
 
         # WoF Entry Box
@@ -85,7 +89,7 @@ class Start:
         self.wof_checkbox.grid(row=4, column=1, columnspan=2)
 
         # Save button (row 7)
-        self.save_btn = Button(text="Save",
+        self.save_btn = Button(self.job_frame, text="Save",
                                command=lambda: self.to_display())
         self.save_btn.grid(row=5, pady=10)
 
