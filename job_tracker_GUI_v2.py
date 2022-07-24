@@ -30,7 +30,7 @@ class Start:
 
         # title for add new job
         self.add_job_label = Label(self.entry_frame, text="Add New Job")
-        self.add_job_label.grid(row=0, columnspan=2, sticky="E", padx=20, pady=10)
+        self.add_job_label.grid(row=0, column=0, padx=20, pady=10)
 
         # variables for entry inputs
         self.name_var = StringVar()
@@ -62,31 +62,31 @@ class Start:
 
         # scale label
         self.dist_scale = Label(self.entry_frame, text="km", font=entry_font, justify=LEFT)
-        self.dist_scale.grid(row=2, column=2)
+        self.dist_scale.grid(row=2, column=2, sticky="W", padx=(0,10), pady=(0,10))
 
         # Virus protection entry (row 5)
         # virus protection entry title
         self.virus_entry_label = Label(self.entry_frame, text="Virus Protection Time: ",
                                       font=entry_font)
-        self.virus_entry_label.grid(row=3, column=0, pady=10, padx=10)
+        self.virus_entry_label.grid(row=3, column=0, sticky="E", padx=10, pady=10)
 
         # virus protection Entry Box
         self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=5)
-        self.virus_entry.grid(row=3, column=1, pady=10)
+        self.virus_entry.grid(row=3, column=1, sticky="W", pady=10)
 
         # scale label (minutes)
         self.virus_scale = Label(self.entry_frame, text="min", font=entry_font)
-        self.virus_scale.grid(row=3, column=2)
+        self.virus_scale.grid(row=3, column=2, sticky="W", padx=(0,10), pady=10)
 
         # WOF and tune entry (row 6)
         # wof entry title
         self.wof_entry_label = Label(self.entry_frame, text="WoF & Tune: ",
                                       font=entry_font)
-        self.wof_entry_label.grid(row=4, column=0, padx=10)
+        self.wof_entry_label.grid(row=4, column=0, sticky="E", padx=10, pady=(0,10))
 
         # WoF Entry Box
         self.wof_checkbox = Checkbutton(self.entry_frame, text="yes", variable=self.wof_var)
-        self.wof_checkbox.grid(row=4, column=1, columnspan=2)
+        self.wof_checkbox.grid(row=4, column=1, sticky="W", columnspan=2, padx=(0,10), pady=(0,10))
 
         # Save button (row 7)
         self.save_btn = Button(self.job_frame, text="Save",
