@@ -12,8 +12,7 @@ class Start:
         background_colour = "light pink"
         entry_font = "Arial 8"
 
-        # initialise list to hold jobs
-        self.job_list = []
+
 
         # job tracker frame
         self.job_frame = Frame(bg=background_colour, pady=10)
