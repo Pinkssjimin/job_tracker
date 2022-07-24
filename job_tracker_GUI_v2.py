@@ -25,12 +25,12 @@ class Start:
         logo_label.grid(row=0)
 
         # Job tracker heading (row 1)
-        self.entry_frame = LabelFrame(self.job_frame, highlightbackground="blue", highlightthickness=2)
+        self.entry_frame = LabelFrame(self.job_frame, highlightbackground="black", highlightthickness=1)
         self.entry_frame.grid(row=1, padx=10, pady=10)
 
         # title for add new job
-        self.add_job_label = Label(self.entry_frame, text="Add New Job")
-        self.add_job_label.grid(row=0, column=0, padx=20, pady=10)
+        self.add_job_label = Label(self.entry_frame, text="Add New Job", fg="grey")
+        self.add_job_label.grid(row=0, columnspan=4, padx=20, pady=10)
 
         # variables for entry inputs
         self.name_var = StringVar()
@@ -42,11 +42,11 @@ class Start:
         # name entry title
         self.name_entry_label = Label(self.entry_frame, text="Customer Name: ",
                                       font=entry_font)
-        self.name_entry_label.grid(row=1, column=0, sticky="E", padx=10, pady=10)
+        self.name_entry_label.grid(row=1, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # Name Entry Box
         self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=entry_font)
-        self.name_entry.grid(row=1,  column=1, columnspan=2, sticky="W", padx=(0,10), pady=10)
+        self.name_entry.grid(row=1,  column=1, columnspan=3, sticky="W", padx=10, pady=(10,0))
 
         # job number entry (row 3)
 
@@ -54,39 +54,39 @@ class Start:
         # distance entry title
         self.dist_entry_label = Label(self.entry_frame, text="Distance Travelled: ",
                                       font=entry_font)
-        self.dist_entry_label.grid(row=2, column=0, sticky="E", padx=10, pady=(0,10))
+        self.dist_entry_label.grid(row=2, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # distance Entry Box
-        self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=5)
-        self.dist_entry.grid(row=2, column=1, sticky="W", pady=(0,10))
+        self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=8)
+        self.dist_entry.grid(row=2, column=1, sticky="W", padx=(10,0), pady=(10,0))
 
         # scale label
         self.dist_scale = Label(self.entry_frame, text="km", font=entry_font, justify=LEFT)
-        self.dist_scale.grid(row=2, column=2, sticky="W", padx=(0,10), pady=(0,10))
+        self.dist_scale.grid(row=2, column=2, sticky="W", padx=(0,10), pady=(10,0))
 
         # Virus protection entry (row 5)
         # virus protection entry title
         self.virus_entry_label = Label(self.entry_frame, text="Virus Protection Time: ",
                                       font=entry_font)
-        self.virus_entry_label.grid(row=3, column=0, sticky="E", padx=10, pady=10)
+        self.virus_entry_label.grid(row=3, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # virus protection Entry Box
-        self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=5)
-        self.virus_entry.grid(row=3, column=1, sticky="W", pady=10)
+        self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=8)
+        self.virus_entry.grid(row=3, column=1, sticky="W", padx=(10,0), pady=(10,0))
 
         # scale label (minutes)
         self.virus_scale = Label(self.entry_frame, text="min", font=entry_font)
-        self.virus_scale.grid(row=3, column=2, sticky="W", padx=(0,10), pady=10)
+        self.virus_scale.grid(row=3, column=2, sticky="W", padx=(0,10), pady=(10,0))
 
         # WOF and tune entry (row 6)
         # wof entry title
         self.wof_entry_label = Label(self.entry_frame, text="WoF & Tune: ",
                                       font=entry_font)
-        self.wof_entry_label.grid(row=4, column=0, sticky="E", padx=10, pady=(0,10))
+        self.wof_entry_label.grid(row=4, column=0, sticky="E", padx=(10,0), pady=10)
 
         # WoF Entry Box
         self.wof_checkbox = Checkbutton(self.entry_frame, text="yes", variable=self.wof_var)
-        self.wof_checkbox.grid(row=4, column=1, sticky="W", columnspan=2, padx=(0,10), pady=(0,10))
+        self.wof_checkbox.grid(row=4, column=1, sticky="W", padx=(10,0), pady=10)
 
         # Save button (row 7)
         self.save_btn = Button(self.job_frame, text="Save",
