@@ -10,16 +10,17 @@ class Start:
 
         # background colour
         background_colour = "light pink"
-        entry_font = "Arial 8"
+        entry_font = "Arial 11"
 
         # job tracker frame
         self.job_frame = Frame(bg=background_colour, pady=10)
         self.job_frame.grid()
 
         # title
-        logo_label = Label(self.job_frame, text="Suzy's Professional Mobile Service",
-                           pady=10, padx=10)
-        logo_label.grid(row=0)
+        logo_photo = PhotoImage(file="logo.png")
+        self.logo_label = Label(self.job_frame, image=logo_photo)
+        self.logo_label.photo = logo_photo
+        self.logo_label.grid(row=0)
 
         # Job tracker heading (row 1)
         self.entry_frame = LabelFrame(self.job_frame, highlightbackground="black", highlightthickness=1)
