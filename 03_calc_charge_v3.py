@@ -8,8 +8,6 @@ from functools import partial   # To prevent unwanted windows
 class Start:
     def __init__(self):
 
-        self.jobs = []
-
         # background colour
         background_colour = "light pink"
         entry_font = "Arial 11"
@@ -101,13 +99,12 @@ class Start:
 
         # check if all info in correct
         print(self.name_var.get(), dist, time, self.wof_var.get())
-        self.jobs.append(Job(self.name_var.get(), dist, time, self.wof_var.get()))
-        print(self.jobs)
-
+        Job(self.name_var.get(), dist, time, self.wof_var.get())
 
 class Job:
     def __init__(self, customer_name, distance, virus_protection, wof_tune):
         #list to store jobs
+        self.jobs = []
 
         self.name = customer_name
         self.dist = distance
@@ -145,10 +142,11 @@ class Job:
             wof_charge = 0
 
         # total charge for job
-        self.charge = dist_charge + time_charge + wof_charge
-        print(self.charge)
+        charge = dist_charge + time_charge + wof_charge
+        print(charge)
         #return final charge
-        return self.charge
+        self.jobs.append(charge)
+        print(self.jobs)
 
 
 # main routine
