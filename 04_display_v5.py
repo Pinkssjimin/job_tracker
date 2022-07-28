@@ -1,6 +1,6 @@
 # 13COS Jimin Ahn
 # AS 91906
-# 28/07/2022 - remove cancel button
+# 28/07/2022 - next and prev button
 
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
