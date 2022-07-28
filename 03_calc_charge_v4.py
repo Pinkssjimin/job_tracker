@@ -117,7 +117,8 @@ class Job_tracker:
 
                 self.name = self.name_var.get()
                 self.wof = self.wof_var.get()
-                self.calc_charge(self.name, dist, time, self.wof)
+
+                self.calc_charge(dist, time)
                 print(self.charges)
 
 
@@ -143,7 +144,7 @@ class Job_tracker:
             self.msg_label.configure(fg="red", text="Please enter: Numbers for km travelled and minutes spent")
 
 
-    def calc_charge(self, name, dist, time, wof):
+    def calc_charge(self, dist, time):
         avg_charge = 10
         # additional charge rate for distance over 5km
         dist_rate = 0.5
@@ -175,7 +176,7 @@ class Job_tracker:
         charge = dist_charge + time_charge + wof_charge
         #return final charge
         self.charges.append(charge)
-        self.names.append(name)
+        self.names.append(self.name)
 
 
 # main routine
