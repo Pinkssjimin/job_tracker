@@ -114,11 +114,10 @@ class Job_tracker:
             # check if all info in correct
             if self.name_var.get().strip() != "" and dist >0 and (time > 0 or self.wof_var.get()):
                 print(self.name_var.get(), dist, time, self.wof_var.get())
+
                 self.name = self.name_var.get()
-                self.dist = dist
-                self.time = time
                 self.wof = self.wof_var.get()
-                self.calc_charge(self.name, self.dist, self.time, self.wof)
+                self.calc_charge(self.name, dist, time, self.wof)
                 print(self.charges)
 
 
@@ -149,7 +148,7 @@ class Job_tracker:
         # additional charge rate for distance over 5km
         dist_rate = 0.5
         # rounding the distance to whole number
-        round_dist = round(self.dist)
+        round_dist = round(dist)
         # cacluating charge for distance over 5km
         over_dist = round_dist - 5
 
@@ -164,7 +163,7 @@ class Job_tracker:
         # charge rate for virus protection minutes
         time_rate = 0.8
         # charge for virus protection time spent
-        time_charge = self.time * time_rate
+        time_charge = time * time_rate
 
         # charge for wof and tune
         if self.wof == True:
