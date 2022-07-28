@@ -5,8 +5,11 @@
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
 
-class Start:
+class Job_tracker:
     def __init__(self):
+
+        self.charges = []
+        self.names = []
 
         # background colour
         background_colour = "light pink"
@@ -89,10 +92,18 @@ class Start:
         #Label to notify people with errors and success
         self.msg_label = Label(self.entry_frame, wraplength=200, justify=LEFT, font=entry_font)
         self.msg_label.grid(row=5, columnspan=3, padx=10, pady=10)
-        # Save button (row 6)
-        self.save_btn = Button(self.job_frame, text="Save",
+
+        #cancel and save button frame(row 6)
+        self.save_btn_frame = Frame(self.job_frame)
+        self.save_btn_frame.grid(row=6, pady=10)
+
+        #cancel buton
+        self.cancel_btn = Button(self.save_btn_frame, text="Cancel")
+        self.cancel_btn.grid(row=0, column=0)
+        # Save button (row 6-0)
+        self.save_btn = Button(self.save_btn_frame, text="Save",
                                command=lambda: self.job_info())
-        self.save_btn.grid(row=6, pady=10)
+        self.save_btn.grid(row=0, column=1, pady=10)
 
     def job_info(self):
         try:
@@ -103,10 +114,16 @@ class Start:
             # check if all info in correct
             if self.name_var.get().strip() != "" and dist >0 and (time > 0 or self.wof_var.get()):
                 print(self.name_var.get(), dist, time, self.wof_var.get())
-                Job(self.name_var.get(), dist, time, self.wof_var.get())
+                self.name = self.name_var.get()
+                self.dist = dist
+                self.time = time
+                self.wof = self.wof_var.get()
+                self.calc_charge(self.name, self.dist, self.time, self.wof)
+                print(self.charges)
+
 
                 # clear all entries once pressed save
-                self.msg_label.configure(text="")
+                self.msg_label.configure(fg="green", text="Successfully saved")
                 self.name_var.set("")
                 for var in [self.dist_var, self.time_var, self.wof_var]:
                     var.set(0)
@@ -127,19 +144,7 @@ class Start:
             self.msg_label.configure(fg="red", text="Please enter: Numbers for km travelled and minutes spent")
 
 
-class Job:
-    def __init__(self, customer_name, distance, virus_protection, wof_tune):
-        #list to store jobs
-        self.jobs = []
-
-        self.name = customer_name
-        self.dist = distance
-        self.time = virus_protection
-        self.wof = wof_tune
-
-        self.calc_charge(self.dist, self.time, self.wof)
-
-    def calc_charge(self, dist, time, wof):
+    def calc_charge(self, name, dist, time, wof):
         avg_charge = 10
         # additional charge rate for distance over 5km
         dist_rate = 0.5
@@ -169,16 +174,16 @@ class Job:
 
         # total charge for job
         charge = dist_charge + time_charge + wof_charge
-        print(charge)
         #return final charge
-        self.jobs.append(charge)
-        print(self.jobs)
+        self.charges.append(charge)
+        self.names.append(name)
+
 
 # main routine
 if __name__ == "__main__":
     root = Tk()
     root.title("Suzy's Professional Mobile Service")
-    something = Start()
+    something = Job_tracker()
     root.mainloop()
 
 
