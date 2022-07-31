@@ -4,6 +4,7 @@
 
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
+import re
 
 class Job_tracker:
     def __init__(self):
@@ -245,13 +246,13 @@ class Display:
 
         self.current_job = 0
 
-        self.next_prev_frame = Frame(self.show_jobs_frame)
+        self.next_prev_frame = Frame(self.show_jobs_frame, bg=background_colour)
         self.next_prev_frame.grid(row=2)
 
         #previous button
 
         # number tracker
-        self.num_tracker = Label(self.next_prev_frame)
+        self.num_tracker = Label(self.next_prev_frame, bg=background_colour)
         self.num_tracker.grid(row=1, column=1)
 
         self.prev_btn = Button(self.next_prev_frame, text="<Previous",
@@ -361,7 +362,7 @@ class Export:
                                  wrap=250)
         self.export_text.grid(row=1)
 
-        # warning text (row 3)
+        # warning text (row 2)
         self.export_text = Label(self.export_frame,
                                  text="If the filename you "
                                       "enter below already "
@@ -370,7 +371,7 @@ class Export:
                                       "jobs", justify=LEFT, bg="#ffafaf",
                                  fg="maroon", font=small_font, wrap=225,
                                  padx=10, pady=10)
-        self.export_text.grid(row=2)
+        self.export_text.grid(row=2, pady=10)
 
         # Filename entry box (row 3)
         self.filename_entry = Entry(self.export_frame, width=20,
@@ -416,7 +417,7 @@ class Export:
             has_error = "yes"
             break
 
-        # when nothing is entered it's a error
+        # when nothing is entered it's an error
         if filename == "":
             problem = "can't be blank"
             has_error = "yes"
@@ -437,15 +438,18 @@ class Export:
             # create file to hold data
             f = open(filename, "w+")
 
+            # heading for jobs list
+            f.write("Jobs List\n\n")
+
             # add new line at end of each item
             for i in job_history:
-                f.write("*"*20 + "\n\n" + i + "\n\n")
+                f.write("*"*20 + "\n" + i + "\n")
 
             # close file
             f.close()
 
-        # close export box when click save buton
-        self.close_export(partner)
+            # close export box when click save button
+            self.close_export(partner)
 
     def close_export(self, partner):
         # Put export button back to normal
