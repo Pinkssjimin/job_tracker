@@ -4,6 +4,7 @@
 
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
+import re
 
 class Job_tracker:
     def __init__(self):
@@ -12,9 +13,9 @@ class Job_tracker:
         self.names = []
 
         background_colour = "light pink"
-        self.entry_font = "Arial 11"
-        self.title_font = "Arial 16 bold"
-        self.small_font = "Arial 9"
+        entry_font = "Arial 12"
+        title_font = "Arial 16 bold"
+        small_font = "Arial 9"
 
         # job tracker frame
         self.job_frame = Frame(bg=background_colour, pady=10)
@@ -28,11 +29,11 @@ class Job_tracker:
         self.logo_label.grid(row=0)
 
         # Job tracker heading (row 1)
-        self.entry_frame = LabelFrame(self.job_frame, bg="white")
+        self.entry_frame = LabelFrame(self.job_frame, highlightbackground="black", highlightthickness=1)
         self.entry_frame.grid(row=1, padx=10, pady=10)
 
         # title for add new job
-        self.add_job_label = Label(self.entry_frame, text="Add New Job", fg="black", font=self.title_font)
+        self.add_job_label = Label(self.entry_frame, text="Add New Job", fg="black", font=title_font)
         self.add_job_label.grid(row=0, columnspan=4, padx=20, pady=10)
 
         # variables for entry inputs
@@ -44,11 +45,11 @@ class Job_tracker:
         # name entry (row 2)
         # name entry title
         self.name_entry_label = Label(self.entry_frame, text="Customer Name: ",
-                                      font=self.entry_font)
+                                      font=entry_font)
         self.name_entry_label.grid(row=1, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # Name Entry Box
-        self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=self.entry_font)
+        self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=entry_font)
         self.name_entry.grid(row=1,  column=1, columnspan=3, sticky="W", padx=10, pady=(10,0))
 
         # job number entry (row 3)
@@ -56,50 +57,50 @@ class Job_tracker:
         # distance entry  (row 4)
         # distance entry title
         self.dist_entry_label = Label(self.entry_frame, text="Distance Travelled: ",
-                                      font=self.entry_font)
+                                      font=entry_font)
         self.dist_entry_label.grid(row=2, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # distance Entry Box
-        self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=8, fg=self.entry_font)
+        self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=8, font=entry_font)
         self.dist_entry.grid(row=2, column=1, sticky="W", padx=(10,0), pady=(10,0))
 
         # scale label
-        self.dist_scale = Label(self.entry_frame, text="km", font=self.entry_font, justify=LEFT)
+        self.dist_scale = Label(self.entry_frame, text="km", font=entry_font, justify=LEFT)
         self.dist_scale.grid(row=2, column=2, sticky="W", padx=(0,10), pady=(10,0))
 
-        self.service_label = Label(self.entry_frame, text="SERVICES", font=self.small_font, fg="grey")
-        self.service_label.grid(row=3, column=0, sticky="E", pady=(10,0), padx=10)
+        self.service_label = Label(self.entry_frame, text="SERVICES", font=small_font, fg="grey")
+        self.service_label.grid(row=3, columnspan=4, pady=(10,0), padx=10)
         # Virus protection entry (row 5)
         # virus protection entry title
         self.virus_entry_label = Label(self.entry_frame, text="Virus Protection Time: ",
-                                      font=self.entry_font)
+                                      font=entry_font)
         self.virus_entry_label.grid(row=4, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # virus protection Entry Box
-        self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=8, fg=self.entry_font)
+        self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=8, font=entry_font)
         self.virus_entry.grid(row=4, column=1, sticky="W", padx=(10,0), pady=(10,0))
 
         # scale label (minutes)
-        self.virus_scale = Label(self.entry_frame, text="min", font=self.entry_font)
+        self.virus_scale = Label(self.entry_frame, text="min", font=entry_font)
         self.virus_scale.grid(row=4, column=2, sticky="W", padx=(0,10), pady=(10,0))
 
         # WOF and tune entry (row 6)
         # wof entry title
         self.wof_entry_label = Label(self.entry_frame, text="WoF & Tune: ",
-                                      font=self.entry_font)
+                                      font=entry_font)
         self.wof_entry_label.grid(row=5, column=0, sticky="E", padx=(10,0), pady=10)
 
         # WoF Entry Box
-        self.wof_checkbox = Checkbutton(self.entry_frame, text="yes", variable=self.wof_var, fg=self.entry_font)
+        self.wof_checkbox = Checkbutton(self.entry_frame, text="yes", variable=self.wof_var, font=entry_font)
         self.wof_checkbox.grid(row=5, column=1, sticky="W", padx=(10,0), pady=10)
 
         #Label to notify people with errors and success
-        self.msg_label = Label(self.entry_frame, wraplength=280, justify=LEFT, font=self.small_font)
-        self.msg_label.grid(row=5, columnspan=3, padx=10, pady=(0, 5))
+        self.msg_label = Label(self.entry_frame, wraplength=280, justify=LEFT, font=small_font)
+        self.msg_label.grid(row=6, columnspan=3, padx=10, pady=(0, 5))
 
         #cancel and save button frame(row 6)
         self.save_btn_frame = Frame(self.job_frame, bg=background_colour)
-        self.save_btn_frame.grid(row=6, pady=10)
+        self.save_btn_frame.grid(row=2, pady=10)
 
         # Save button (row 6-0)
         self.save_btn = Button(self.save_btn_frame, text="Save",
@@ -202,7 +203,7 @@ class Display:
     def __init__(self, partner, charges, names):
 
         self.job_history = []
-        info_font = "arial 14 italic"
+        info_font = "arial 12 italic"
 
         # background colour
         background_colour = "light pink"
@@ -247,13 +248,13 @@ class Display:
 
         self.current_job = 0
 
-        self.next_prev_frame = Frame(self.show_jobs_frame)
+        self.next_prev_frame = Frame(self.show_jobs_frame, bg=background_colour)
         self.next_prev_frame.grid(row=2)
 
         #previous button
 
         # number tracker
-        self.num_tracker = Label(self.next_prev_frame)
+        self.num_tracker = Label(self.next_prev_frame, bg=background_colour)
         self.num_tracker.grid(row=1, column=1)
 
         self.prev_btn = Button(self.next_prev_frame, text="<Previous",
@@ -268,13 +269,13 @@ class Display:
         job_info = self.show_job()
 
         # display frame
-        self.display_frame = Frame(self.show_jobs_frame, bg="white", highlightbackground="black", highlightthickness=1)
+        self.display_frame = Frame(self.show_jobs_frame, highlightbackground="black", highlightthickness=1)
         self.display_frame.grid(row=1, pady=10, padx=10)
 
         # job info label
         self.job_info_label = Label(self.display_frame, text=job_info,
-                                       font=info_font, justify=LEFT)
-        self.job_info_label.grid(row=0, pady=20, padx=70)
+                                       font=info_font, justify=LEFT, width=35, wrap=350)
+        self.job_info_label.grid(row=0, pady=20, padx=10)
 
     def next_job(self):
         self.current_job += 1
@@ -331,9 +332,10 @@ class Export:
 
         background = "light blue"
 
-        heading_font = "Arial 15 bold"
-        sub_heading_font = "Arial 12"
-        small_font = "Arial 8"
+        entry_font = "Arial 12"
+        title_font = "Arial 16 bold"
+        small_font = "Arial 9"
+
         # disable export button
         partner.export_btn.config(state=DISABLED)
 
@@ -350,7 +352,7 @@ class Export:
 
         # set up export heading (row 0)
         self.export_heading = Label(self.export_frame, text="Export / Instructions",
-                                    font=heading_font, bg=background)
+                                    font=title_font, bg=background)
         self.export_heading.grid(row=0)
 
         # export text (label ,row 1)
@@ -359,7 +361,7 @@ class Export:
                                       "box below and press the Save "
                                       "button to save your jobs to "
                                       "text file.",
-                                 justify=LEFT, width=40, bg=background,
+                                 justify=LEFT, width=40, bg=background, font=small_font,
                                  wrap=250)
         self.export_text.grid(row=1)
 
@@ -376,12 +378,12 @@ class Export:
 
         # Filename entry box (row 3)
         self.filename_entry = Entry(self.export_frame, width=20,
-                                    font="aral 14 bold", justify=CENTER)
+                                    font=entry_font, justify=CENTER)
         self.filename_entry.grid(row=3, pady=10)
 
         # error message labels (initially blank, row 4)
         self.save_error_label = Label(self.export_frame, text="", fg="maroon",
-                                      bg=background)
+                                      bg=background, font=small_font)
         self.save_error_label.grid(row=4)
 
         # save / cancel frame (row 5)
@@ -446,8 +448,8 @@ class Export:
             # close file
             f.close()
 
-        # close export box when click save buton
-        self.close_export(partner)
+            # close export box when click save buton
+            self.close_export(partner)
 
     def close_export(self, partner):
         # Put export button back to normal
