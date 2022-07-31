@@ -12,9 +12,9 @@ class Job_tracker:
         self.names = []
 
         background_colour = "light pink"
-        entry_font = "Arial 11"
-        title_font = "Arial 16 bold"
-        small_font = "Arial 9"
+        self.entry_font = "Arial 11"
+        self.title_font = "Arial 16 bold"
+        self.small_font = "Arial 9"
 
         # job tracker frame
         self.job_frame = Frame(bg=background_colour, pady=10)
@@ -28,11 +28,11 @@ class Job_tracker:
         self.logo_label.grid(row=0)
 
         # Job tracker heading (row 1)
-        self.entry_frame = LabelFrame(self.job_frame, highlightbackground="black", highlightthickness=1)
+        self.entry_frame = LabelFrame(self.job_frame, bg="white")
         self.entry_frame.grid(row=1, padx=10, pady=10)
 
         # title for add new job
-        self.add_job_label = Label(self.entry_frame, text="Add New Job", fg="grey", font=title_font)
+        self.add_job_label = Label(self.entry_frame, text="Add New Job", fg="black", font=self.title_font)
         self.add_job_label.grid(row=0, columnspan=4, padx=20, pady=10)
 
         # variables for entry inputs
@@ -44,11 +44,11 @@ class Job_tracker:
         # name entry (row 2)
         # name entry title
         self.name_entry_label = Label(self.entry_frame, text="Customer Name: ",
-                                      font=entry_font)
+                                      font=self.entry_font)
         self.name_entry_label.grid(row=1, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # Name Entry Box
-        self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=entry_font)
+        self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=self.entry_font)
         self.name_entry.grid(row=1,  column=1, columnspan=3, sticky="W", padx=10, pady=(10,0))
 
         # job number entry (row 3)
@@ -56,43 +56,45 @@ class Job_tracker:
         # distance entry  (row 4)
         # distance entry title
         self.dist_entry_label = Label(self.entry_frame, text="Distance Travelled: ",
-                                      font=entry_font)
+                                      font=self.entry_font)
         self.dist_entry_label.grid(row=2, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # distance Entry Box
-        self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=8)
+        self.dist_entry = Spinbox(self.entry_frame, from_=0, to=1600, textvariable=self.dist_var, width=8, fg=self.entry_font)
         self.dist_entry.grid(row=2, column=1, sticky="W", padx=(10,0), pady=(10,0))
 
         # scale label
-        self.dist_scale = Label(self.entry_frame, text="km", font=entry_font, justify=LEFT)
+        self.dist_scale = Label(self.entry_frame, text="km", font=self.entry_font, justify=LEFT)
         self.dist_scale.grid(row=2, column=2, sticky="W", padx=(0,10), pady=(10,0))
 
+        self.service_label = Label(self.entry_frame, text="SERVICES", font=self.small_font, fg="grey")
+        self.service_label.grid(row=3, column=0, sticky="E", pady=(10,0), padx=10)
         # Virus protection entry (row 5)
         # virus protection entry title
         self.virus_entry_label = Label(self.entry_frame, text="Virus Protection Time: ",
-                                      font=entry_font)
-        self.virus_entry_label.grid(row=3, column=0, sticky="E", padx=(10,0), pady=(10,0))
+                                      font=self.entry_font)
+        self.virus_entry_label.grid(row=4, column=0, sticky="E", padx=(10,0), pady=(10,0))
 
         # virus protection Entry Box
-        self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=8)
-        self.virus_entry.grid(row=3, column=1, sticky="W", padx=(10,0), pady=(10,0))
+        self.virus_entry = Spinbox(self.entry_frame, from_=0, to=360, textvariable=self.time_var, width=8, fg=self.entry_font)
+        self.virus_entry.grid(row=4, column=1, sticky="W", padx=(10,0), pady=(10,0))
 
         # scale label (minutes)
-        self.virus_scale = Label(self.entry_frame, text="min", font=entry_font)
-        self.virus_scale.grid(row=3, column=2, sticky="W", padx=(0,10), pady=(10,0))
+        self.virus_scale = Label(self.entry_frame, text="min", font=self.entry_font)
+        self.virus_scale.grid(row=4, column=2, sticky="W", padx=(0,10), pady=(10,0))
 
         # WOF and tune entry (row 6)
         # wof entry title
         self.wof_entry_label = Label(self.entry_frame, text="WoF & Tune: ",
-                                      font=entry_font)
-        self.wof_entry_label.grid(row=4, column=0, sticky="E", padx=(10,0), pady=10)
+                                      font=self.entry_font)
+        self.wof_entry_label.grid(row=5, column=0, sticky="E", padx=(10,0), pady=10)
 
         # WoF Entry Box
-        self.wof_checkbox = Checkbutton(self.entry_frame, text="yes", variable=self.wof_var)
-        self.wof_checkbox.grid(row=4, column=1, sticky="W", padx=(10,0), pady=10)
+        self.wof_checkbox = Checkbutton(self.entry_frame, text="yes", variable=self.wof_var, fg=self.entry_font)
+        self.wof_checkbox.grid(row=5, column=1, sticky="W", padx=(10,0), pady=10)
 
         #Label to notify people with errors and success
-        self.msg_label = Label(self.entry_frame, wraplength=280, justify=LEFT, font=small_font)
+        self.msg_label = Label(self.entry_frame, wraplength=280, justify=LEFT, font=self.small_font)
         self.msg_label.grid(row=5, columnspan=3, padx=10, pady=(0, 5))
 
         #cancel and save button frame(row 6)
@@ -200,10 +202,10 @@ class Display:
     def __init__(self, partner, charges, names):
 
         self.job_history = []
+        info_font = "arial 14 italic"
 
         # background colour
         background_colour = "light pink"
-        label_font = "Arial 11"
 
         # disable save & show all jobs button
         partner.save_btn.config(state=DISABLED)
@@ -266,12 +268,12 @@ class Display:
         job_info = self.show_job()
 
         # display frame
-        self.display_frame = Frame(self.show_jobs_frame, highlightbackground="black", highlightthickness=1)
+        self.display_frame = Frame(self.show_jobs_frame, bg="white", highlightbackground="black", highlightthickness=1)
         self.display_frame.grid(row=1, pady=10, padx=10)
 
         # job info label
         self.job_info_label = Label(self.display_frame, text=job_info,
-                                       font=label_font, justify=LEFT)
+                                       font=info_font, justify=LEFT)
         self.job_info_label.grid(row=0, pady=20, padx=70)
 
     def next_job(self):
