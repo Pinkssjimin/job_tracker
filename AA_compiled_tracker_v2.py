@@ -1,6 +1,6 @@
 # 13COS Jimin Ahn
 # AS 91906
-# 29/07/2022 - export button
+# 29/07/2022 - final testing
 
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
@@ -22,19 +22,28 @@ class Job_tracker:
         self.job_frame.grid()
 
         # title
-        logo_photo = PhotoImage(file="logo.png")
-        self.logo_label = Label(self.job_frame, image=logo_photo)
-        self.logo_label.photo = logo_photo
-        #self.logo_label = Label(self.job_frame, text="temporary title")
+        #logo_photo = PhotoImage(file="logo.png")
+        #self.logo_label = Label(self.job_frame, image=logo_photo)
+        #self.logo_label.photo = logo_photo
+        self.logo_label = Label(self.job_frame, text="temporary title")
         self.logo_label.grid(row=0)
+
+        # title for add new job
+        self.add_job_label = Label(self.job_frame, text="Add New Job", fg="black", font=title_font, bg=background_colour)
+        self.add_job_label.grid(row=1, columnspan=4, padx=20, pady=(10,0))
+
+        # input info text (label ,row 2)
+        self.input_text = Label(self.job_frame,
+                                text="Enter the job information in the "
+                                     "boxes below and press the Save "
+                                     "button to save your job.",
+                                width=50, bg=background_colour, font=small_font,
+                                wrap=300)
+        self.input_text.grid(row=2, pady=(0,10))
 
         # Job tracker heading (row 1)
         self.entry_frame = LabelFrame(self.job_frame, highlightbackground="black", highlightthickness=1)
-        self.entry_frame.grid(row=1, padx=10, pady=10)
-
-        # title for add new job
-        self.add_job_label = Label(self.entry_frame, text="Add New Job", fg="black", font=title_font)
-        self.add_job_label.grid(row=0, columnspan=4, padx=20, pady=10)
+        self.entry_frame.grid(row=3, padx=10, pady=10)
 
         # variables for entry inputs
         self.name_var = StringVar()
@@ -46,11 +55,11 @@ class Job_tracker:
         # name entry title
         self.name_entry_label = Label(self.entry_frame, text="Customer Name: ",
                                       font=entry_font)
-        self.name_entry_label.grid(row=1, column=0, sticky="E", padx=(10,0), pady=(10,0))
+        self.name_entry_label.grid(row=1, column=0, sticky="E", padx=(10,0), pady=(30,0))
 
         # Name Entry Box
         self.name_entry = Entry(self.entry_frame, textvariable=self.name_var, font=entry_font)
-        self.name_entry.grid(row=1,  column=1, columnspan=3, sticky="W", padx=10, pady=(10,0))
+        self.name_entry.grid(row=1,  column=1, columnspan=3, sticky="W", padx=10, pady=(30,0))
 
         # job number entry (row 3)
 
@@ -100,7 +109,7 @@ class Job_tracker:
 
         #cancel and save button frame(row 6)
         self.save_btn_frame = Frame(self.job_frame, bg=background_colour)
-        self.save_btn_frame.grid(row=2, pady=10)
+        self.save_btn_frame.grid(row=4, pady=10)
 
         # Save button (row 6-0)
         self.save_btn = Button(self.save_btn_frame, text="Save",
@@ -202,7 +211,6 @@ class Job_tracker:
 class Display:
     def __init__(self, partner, charges, names):
 
-        self.job_history = []
         info_font = "arial 12 italic"
 
         # background colour
@@ -226,10 +234,10 @@ class Display:
         self.show_jobs_frame.grid()
 
         # set up heading
-        logo_photo = PhotoImage(file="logo.png")
-        self.logo_label = Label(self.show_jobs_frame, image=logo_photo)
-        self.logo_label.photo = logo_photo
-        #self.logo_label = Label(self.show_jobs_frame, text="temporary title")
+        #logo_photo = PhotoImage(file="logo.png")
+        #self.logo_label = Label(self.show_jobs_frame, image=logo_photo)
+        #self.logo_label.photo = logo_photo
+        self.logo_label = Label(self.show_jobs_frame, text="temporary title")
         self.logo_label.grid(row=0, pady=10, padx=10)
 
                 # export / add job buttons frame (row2)
@@ -243,7 +251,7 @@ class Display:
 
         # export button
         self.export_btn = Button(self.export_add_job_frame, text="Export",
-                                 width=10, command=lambda: self.to_export(self.job_history))
+                                 width=10, command=lambda: self.to_export(charges, names))
         self.export_btn.grid(row=0, column=1)
 
         self.current_job = 0
@@ -315,7 +323,6 @@ class Display:
                        "Charge: ${:.2f}".format(job_num, name, charge)
             self.num_tracker.configure(text="{}/{}".format(job_num, len(self.charges)))
 
-            self.job_history.append(job_info)
         return job_info
 
     def close_display(self, partner):
@@ -324,11 +331,11 @@ class Display:
         partner.show_jobs_btn.config(state=NORMAL)
         self.display_box.destroy()
 
-    def to_export(self, job_history):
-        Export(self, job_history)
+    def to_export(self, charges, names):
+        Export(self, charges, names)
 
 class Export:
-    def __init__(self, partner, job_history):
+    def __init__(self, partner, charges, names):
 
         background = "light blue"
 
@@ -351,7 +358,7 @@ class Export:
         self.export_frame.grid()
 
         # set up export heading (row 0)
-        self.export_heading = Label(self.export_frame, text="Export / Instructions",
+        self.export_heading = Label(self.export_frame, text="Export",
                                     font=title_font, bg=background)
         self.export_heading.grid(row=0)
 
@@ -371,7 +378,7 @@ class Export:
                                       "enter below already "
                                       "exists, its contents "
                                       "will be replaced with your "
-                                      "jobs", justify=LEFT, bg="#ffafaf",
+                                      "jobs", justify=LEFT, bg="light pink",
                                  fg="maroon", font=small_font, wrap=225,
                                  padx=10, pady=10)
         self.export_text.grid(row=2)
@@ -392,14 +399,14 @@ class Export:
 
         # save and cancel buttons (row 0 of save_cancel_frame)
         self.save_button = Button(self.save_cancel_frame, text="Save",
-                                  command=partial(lambda: self.save_jobs(partner, job_history)))
+                                  command=partial(lambda: self.save_jobs(partner, charges, names)))
         self.save_button.grid(row=0, column=1)
 
         self.cancel_button = Button(self.save_cancel_frame, text="Back",
                                     command=partial(self.close_export, partner))
         self.cancel_button.grid(row=0, column=0)
 
-    def save_jobs(self, partner, job_history):
+    def save_jobs(self, partner, charges, names):
 
         # Regular expression to check filename is valid
         has_error = "no"
@@ -441,9 +448,14 @@ class Export:
             # create file to hold data
             f = open(filename, "w+")
 
+            # heading for list
+            f.write("Jobs List\n")
+
             # add new line at end of each item
-            for i in job_history:
-                f.write("*"*20 + "\n\n" + i + "\n\n")
+            for i in range(len(names)):
+                f.write("\n" + "*"*20 +
+                        "\nJob number: {} \nCustomer name: {} \nCharge: ${:.2f}"
+                        .format(i+1, names[i], charges[i]))
 
             # close file
             f.close()
