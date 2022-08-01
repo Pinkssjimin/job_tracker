@@ -1,6 +1,6 @@
 # 13COS Jimin Ahn
 # AS 91906
-# 28/07/2022 - next and prev button error handling
+# 28/07/2022 - export window
 
 from tkinter import *
 from functools import partial   # To prevent unwanted windows
