@@ -449,13 +449,12 @@ class Export:
             f = open(filename, "w+")
 
             # heading for list
-            f.write("Jobs List\n")
+            f.write("EXPORTED JOB LIST\n" + "\n" + "*"*30)
 
             # add new line at end of each item
             for i in range(len(names)):
-                f.write("\n" + "*"*20 +
-                        "\nJob number: {} \nCustomer name: {} \nCharge: ${:.2f}"
-                        .format(i+1, names[i], charges[i]))
+                f.write("\n   Job number: {} \n   Customer name: {} \n   Charge: ${:.2f}"
+                        .format(i+1, names[i], charges[i]) + "\n" + "*"*30)
 
             # close file
             f.close()
