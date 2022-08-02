@@ -138,7 +138,7 @@ class Job_tracker:
 
             # check if all info in correct
             if self.name_var.get().strip() != "" and dist >0 and (time > 0 or self.wof_var.get()):
-                print(self.name_var.get(), dist, time, self.wof_var.get())
+                # print(self.name_var.get(), dist, time, self.wof_var.get())
 
                 self.name = self.name_var.get()
                 self.wof = self.wof_var.get()
@@ -201,7 +201,7 @@ class Job_tracker:
         #return final charge
         self.charges.append(charge)
         self.names.append(self.name)
-        print(self.charges, self.names)
+        # print(self.charges, self.names)
 
     def close_jobs(self, partner):
      #Put add new job button back to normal
@@ -421,7 +421,7 @@ class Export:
         valid_char = "[A-Za-z0-9_]"
 
         filename = self.filename_entry.get()
-        print(filename)
+        # print(filename)
 
         for letter in filename:
             if re.match(valid_char, letter):
@@ -446,7 +446,7 @@ class Export:
             self.save_error_label.config(text="Invalid filename - {}".format(problem))
             # change entry box background to pink
             self.filename_entry.config(bg="#ffafaf")
-            print()
+            # print()
 
         else:
             # if there are no errors, generate text file and then close dialogue
