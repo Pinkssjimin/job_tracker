@@ -38,7 +38,7 @@ class Job_tracker:
                                      "boxes below and press the Save "
                                      "button to save your job.",
                                 width=50, bg=background_colour, font=small_font,
-                                wrap=300)
+                                wrap=250)
         self.input_text.grid(row=2, pady=(0,10))
 
         # Job tracker heading (row 1)
@@ -114,7 +114,7 @@ class Job_tracker:
         # Save button (row 6-0)
         self.save_btn = Button(self.save_btn_frame, text="Save",
                                command=lambda: self.job_info())
-        self.save_btn.grid(row=0, column=1, padx=10, pady=0)
+        self.save_btn.grid(row=0, column=1, padx=0, pady=0)
 
         # View all jobs entered
         self.show_jobs_btn = Button(self.save_btn_frame, text="Show all jobs",
@@ -238,16 +238,16 @@ class Display:
         self.logo_label = Label(self.show_jobs_frame, image=logo_photo, bg=background_colour)
         self.logo_label.photo = logo_photo
         # self.logo_label = Label(self.show_jobs_frame, text="temporary title")
-        self.logo_label.grid(row=0, pady=10)
+        self.logo_label.grid(row=0, pady=10, padx=10)
 
                 # export / add job buttons frame (row2)
-        self.export_add_job_frame = Frame(self.show_jobs_frame)
+        self.export_add_job_frame = Frame(self.show_jobs_frame, bg=background_colour)
         self.export_add_job_frame.grid(row=3, pady=10)
 
         # add job button
         self.add_job_btn = Button(self.export_add_job_frame, text="Add new job",
                                   width=10, command=partial(self.close_display, partner))
-        self.add_job_btn.grid(row=0, column=0)
+        self.add_job_btn.grid(row=0, column=0, padx=10)
 
         # export button
         self.export_btn = Button(self.export_add_job_frame, text="Export",
@@ -362,7 +362,7 @@ class Export:
         self.logo_label = Label(self.export_frame, image=logo_photo, bg=background)
         self.logo_label.photo = logo_photo
         # self.logo_label = Label(self.show_jobs_frame, text="temporary title")
-        self.logo_label.grid(row=0, pady=10)
+        self.logo_label.grid(row=0, pady=10, padx=10)
 
 
         # set up export heading (row 0)
@@ -402,13 +402,13 @@ class Export:
         self.save_error_label.grid(row=5)
 
         # save / cancel frame (row 5)
-        self.save_cancel_frame = Frame(self.export_frame)
+        self.save_cancel_frame = Frame(self.export_frame, bg=background)
         self.save_cancel_frame.grid(row=6, pady=10)
 
         # save and cancel buttons (row 0 of save_cancel_frame)
         self.save_button = Button(self.save_cancel_frame, text="Save",
                                   command=partial(lambda: self.save_jobs(partner, charges, names)))
-        self.save_button.grid(row=0, column=1)
+        self.save_button.grid(row=0, column=1, padx=10)
 
         self.cancel_button = Button(self.save_cancel_frame, text="Back",
                                     command=partial(self.close_export, partner))
