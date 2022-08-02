@@ -15,18 +15,18 @@ class Job_tracker:
         background_colour = "light pink"
         entry_font = "Arial 12"
         title_font = "Arial 16 bold"
-        small_font = "Arial 9"
+        small_font = "Arial 11"
 
         # job tracker frame
         self.job_frame = Frame(bg=background_colour, pady=10)
         self.job_frame.grid()
 
         # title
-        #logo_photo = PhotoImage(file="logo.png")
-        #self.logo_label = Label(self.job_frame, image=logo_photo)
-        #self.logo_label.photo = logo_photo
-        self.logo_label = Label(self.job_frame, text="temporary title")
-        self.logo_label.grid(row=0)
+        logo_photo = PhotoImage(file="logo.png")
+        self.logo_label = Label(self.job_frame, image=logo_photo, bg=background_colour)
+        self.logo_label.photo = logo_photo
+        # self.logo_label = Label(self.job_frame, text="temporary title")
+        self.logo_label.grid(row=0, pady=10, padx=0)
 
         # title for add new job
         self.add_job_label = Label(self.job_frame, text="Add New Job", fg="black", font=title_font, bg=background_colour)
@@ -234,11 +234,11 @@ class Display:
         self.show_jobs_frame.grid()
 
         # set up heading
-        #logo_photo = PhotoImage(file="logo.png")
-        #self.logo_label = Label(self.show_jobs_frame, image=logo_photo)
-        #self.logo_label.photo = logo_photo
-        self.logo_label = Label(self.show_jobs_frame, text="temporary title")
-        self.logo_label.grid(row=0, pady=10, padx=10)
+        logo_photo = PhotoImage(file="logo.png")
+        self.logo_label = Label(self.show_jobs_frame, image=logo_photo, bg=background_colour)
+        self.logo_label.photo = logo_photo
+        # self.logo_label = Label(self.show_jobs_frame, text="temporary title")
+        self.logo_label.grid(row=0, pady=10)
 
                 # export / add job buttons frame (row2)
         self.export_add_job_frame = Frame(self.show_jobs_frame)
@@ -357,10 +357,18 @@ class Export:
         self.export_frame = Frame(self.export_box, width=300, bg=background)
         self.export_frame.grid()
 
+        # set up heading
+        logo_photo = PhotoImage(file="logo.png")
+        self.logo_label = Label(self.export_frame, image=logo_photo, bg=background)
+        self.logo_label.photo = logo_photo
+        # self.logo_label = Label(self.show_jobs_frame, text="temporary title")
+        self.logo_label.grid(row=0, pady=10)
+
+
         # set up export heading (row 0)
         self.export_heading = Label(self.export_frame, text="Export",
                                     font=title_font, bg=background)
-        self.export_heading.grid(row=0)
+        self.export_heading.grid(row=1)
 
         # export text (label ,row 1)
         self.export_text = Label(self.export_frame,
@@ -370,7 +378,7 @@ class Export:
                                       "text file.",
                                  justify=LEFT, width=40, bg=background, font=small_font,
                                  wrap=250)
-        self.export_text.grid(row=1)
+        self.export_text.grid(row=2)
 
         # warning text (row 3)
         self.export_text = Label(self.export_frame,
@@ -381,21 +389,21 @@ class Export:
                                       "jobs", justify=LEFT, bg="light pink",
                                  fg="maroon", font=small_font, wrap=225,
                                  padx=10, pady=10)
-        self.export_text.grid(row=2)
+        self.export_text.grid(row=3)
 
         # Filename entry box (row 3)
         self.filename_entry = Entry(self.export_frame, width=20,
                                     font=entry_font, justify=CENTER)
-        self.filename_entry.grid(row=3, pady=10)
+        self.filename_entry.grid(row=4, pady=10)
 
         # error message labels (initially blank, row 4)
         self.save_error_label = Label(self.export_frame, text="", fg="maroon",
                                       bg=background, font=small_font)
-        self.save_error_label.grid(row=4)
+        self.save_error_label.grid(row=5)
 
         # save / cancel frame (row 5)
         self.save_cancel_frame = Frame(self.export_frame)
-        self.save_cancel_frame.grid(row=5, pady=10)
+        self.save_cancel_frame.grid(row=6, pady=10)
 
         # save and cancel buttons (row 0 of save_cancel_frame)
         self.save_button = Button(self.save_cancel_frame, text="Save",
